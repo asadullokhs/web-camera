@@ -13,12 +13,11 @@
 }
 
 #snap{
-    width: 150px;
-    height: 150px;
-    background-color: aquamarine;
-    color: tomato;
+    width: 100px;
+    height: 100px;
+    background-color: transparent;
     border-radius: 50%;
-    border: 5px solid tomato;
+    border: 5px solid darkred;
     margin: 0 auto;
     display: block;
     cursor: pointer;
