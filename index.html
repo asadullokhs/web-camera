@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebCamera</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="display">
+      <video id="video" autoplay width="480px" height="380px"></video>
+    </div>
+
+    <button id="snap">Capture</button>
+
+    <canvas id="canvas" width="500px" height="350px">
+      <img id="img" src="" alt="" />
+    </canvas>
+
+    <script>
+      const video = document.getElementById("video");
+      const snap = document.getElementById("snap");
+      const canvas = document.getElementById("canvas");
+
+      const constraints = {
+        audio: true,
+        video: {
+          width: { min: 1024, ideal: 1280, max: 1920 },
+          height: { min: 576, ideal: 720, max: 1080 },
+        },
+      };
+
+      async function startCamera() {
+        try {
+          const stream = await window.navigator.mediaDevices.getUserMedia(
+            constraints
+          );
+
+          video.srcObject = stream;
+
+          window.stream = stream;
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      var context = canvas.getContext("2d");
+
+      snap.addEventListener("click", () => {
+        context.drawImage(video, 0, 0, 500, 350);
+
+        const img = canvas.toDataURL("image/png");
+        document.getElementById("img").src = img;
+      });
+
+      startCamera();
+    </script>
+  </body>
+</html>
